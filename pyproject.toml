@@ -1,0 +1,46 @@
+[tool.black]
+line-length = 85                     # количество символов в строке
+skip-string-normalization = true     # пропускать форматирование кавычек
+extend-exclude = 'migrations'        # пропускать директории migrations/
+
+
+[tool.isort]
+line_length = 85                   # количество символов в строке
+include_trailing_comma = false     # ставить запятую после полседнего импорта
+multi_line_output = 2              # стиль оформления многострочных импортов
+skip = 'migrations'                # пропускать директории migrations/
+
+# сторонние пакеты
+known_third_party = ['django', 'rest_framework']
+
+# Подключаемые самописные пакеты
+known_first_party = []
+
+# локальные директории
+known_local_folder = [
+    'conf', 'tests', 'modules',
+]
+
+# порядок импортов
+sections = ['STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
+
+
+[tool.poetry]
+name = "organizations-directory"
+version = "0.1.0"
+description = "справочник организцаций"
+authors = ["Dmitry Klevakov <dklevakov@gmail.com>"]
+readme = "README.md"
+packages = [{include = "organizations_directory"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = ">=3.1.0,<3.2.0"
+djangorestframework = ">=3.12.0,<3.13.0"
+psycopg2-binary = ">=2.8.0,<2.9.0"
+python-dotenv = ">=0.11.0,<0.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
