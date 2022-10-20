@@ -1,3 +1,94 @@
 from django.db import models
 
-# Create your models here.
+
+class District(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Наименование района')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Район города'
+        verbose_name_plural = 'Районы города'
+
+
+class Network(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Наименование сети')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Сеть предприятий'
+        verbose_name_plural = 'Сети предприятий'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Наименование категории')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Категория товара'
+        verbose_name_plural = 'Категории товаров'
+
+
+class Organization(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Наименование предприятия')
+    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    network = models.ForeignKey(
+        Network,
+        on_delete=models.CASCADE,
+        related_name='organizations',
+        verbose_name='Сеть предприятий',
+    )
+    districts = models.ManyToManyField(District)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Предприятие'
+        verbose_name_plural = 'Предприятия'
+
+
+class Product(models.Model):
+    name = models.CharField(
+        max_length=50, verbose_name='Наименование товара или услуги'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_DEFAULT,
+        default=1,
+        related_name='products',
+        verbose_name='Категория товара или услуги'
+    )
+    organizations = models.ManyToManyField(Organization, through='Offer')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Товар/Услуга'
+        verbose_name_plural = 'Товары/Услуги'
+
+
+class Offer(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name='Продукт/Услуга'
+    )
+    organization = models.ForeignKey(
+        Organization, on_delete=models.CASCADE, verbose_name='Предприятие'
+    )
+    price = models.FloatField(verbose_name='Цена', blank=True, null=True)
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = 'Предложение'
+        verbose_name_plural = 'Предложения'
