@@ -51,6 +51,29 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
+    def get_offers(self):
+        """
+        Возвращает список строк с товарами организации и их ценами.
+
+        :return: ['Колбаса - 530.5 руб.', ]
+        """
+
+        offers = (
+            Offer.objects.select_related('product')
+            .filter(organization_id=self.id)
+            .only('price', 'product__name')
+        )
+        return [f'{offer.product.name} - {offer.price} руб.' for offer in offers]
+
+    def get_districts(self):
+        """
+        Возвращает список районов к которым принадлежит предприятие.
+
+        :return: ['Ленинский', ]
+        """
+
+        return list(self.districts.values_list('name', flat=True))
+
     class Meta:
         ordering = ['id']
         verbose_name = 'Предприятие'
@@ -66,12 +89,28 @@ class Product(models.Model):
         on_delete=models.SET_DEFAULT,
         default=1,
         related_name='products',
-        verbose_name='Категория товара или услуги'
+        verbose_name='Категория товара или услуги',
     )
     organizations = models.ManyToManyField(Organization, through='Offer')
 
     def __str__(self):
         return self.name
+
+    def get_offers(self):
+        """
+        Возвращает список строк с организациями в котрых представлен товар.
+
+        :return: ['Магнит на Зорге', ]
+        """
+
+        offers = (
+            Offer.objects.select_related('organization')
+            .filter(product_id=self.id)
+            .only('price', 'organization__name')
+        )
+        return [
+            f'{offer.organization.name} - {offer.price} руб.' for offer in offers
+        ]
 
     class Meta:
         ordering = ['id']
