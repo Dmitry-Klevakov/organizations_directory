@@ -58,11 +58,7 @@ class Organization(models.Model):
         :return: ['Колбаса - 530.5 руб.', ]
         """
 
-        offers = (
-            Offer.objects.select_related('product')
-            .filter(organization_id=self.id)
-            .only('price', 'product__name')
-        )
+        offers = self.offer_set.only('price', 'product__name')
         return [f'{offer.product.name} - {offer.price} руб.' for offer in offers]
 
     def get_districts(self):
