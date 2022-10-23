@@ -29,7 +29,7 @@ SECRET_KEY = 't6(=f(==s8%00v^efidz+7m!oc%9l-z)-&+=pn&sfnpe=es*f+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition

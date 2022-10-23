@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  db:
+    container_name: postgres_db
+    image: postgres:11.2
+    environment:
+      POSTGRES_DB: 'organizations_directory'
+      POSTGRES_HOST: '0.0.0.0'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'pass'
+  web:
+    container_name: web
+    image: organizations_directory:latest
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
