@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path, re_path
 from drf_yasg import openapi
@@ -11,18 +10,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from organizations_directory.views import OrganizationByDistrictViewSet, \
     OrganizationViewSet, ProductViewSet
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Snippets API",
-        default_version='v1',
-        description="Test description",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
-        license=openapi.License(name="BSD License"),
-    ),
-    public=True,
-    permission_classes=[permissions.AllowAny],
-)
 
 admin.site.site_header = 'Справочник Организаций'
 admin.site.index_title = 'Администрирование базы'
@@ -47,8 +34,19 @@ urlpatterns = [
     ),
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    url(r'^docs', schema_view),
 ]
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Organizations directory",
+        default_version='v1',
+        description="Test description",
+        contact=openapi.Contact(email="klevakov_de@mail.ru"),
+        license=openapi.License(name='BSD 2-Clause "Simplified" License'),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 swagger_urlpatterns = [
     re_path(
