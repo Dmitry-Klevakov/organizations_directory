@@ -3,6 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 
 from organizations_directory.models import Organization, Product
+from organizations_directory.permissions import IsAdminOrIsAuthenticated
 from organizations_directory.serializers import OrganizationSerializer, \
     ProductSerializer
 
@@ -15,6 +16,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     http_method_names = ['get', 'post']
+    permission_classes = [IsAdminOrIsAuthenticated]
 
 
 class OrganizationViewSet(viewsets.ModelViewSet):
