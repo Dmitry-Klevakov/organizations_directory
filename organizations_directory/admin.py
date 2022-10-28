@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import *
+from organizations_directory.models import *
 
 
 @admin.register(District)

@@ -11,15 +11,16 @@ multi_line_output = 2              # стиль оформления много�
 skip = 'migrations'                # пропускать директории migrations/
 
 # сторонние пакеты
-known_third_party = ['django', 'rest_framework']
+known_third_party = [
+    'django', 'rest_framework', 'rest_framework_simplejwt', 'factory', 'faker',
+    'dotenv',
+]
 
 # Подключаемые самописные пакеты
 known_first_party = []
 
 # локальные директории
-known_local_folder = [
-    'conf', 'tests', 'modules',
-]
+known_local_folder = ['conf', 'tests', 'docker', 'logo', 'organizations_directory']
 
 # порядок импортов
 sections = ['STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
@@ -42,6 +43,11 @@ python-dotenv = ">=0.11.0,<0.12.0"
 django-filter = "^22.1"
 djangorestframework-simplejwt = "4.8.0"
 drf-yasg = "^1.21.4"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "5.3.5"
+factory-boy = ">=2.12.0,<2.13.0"
+pyyaml = ">=5.3.0,<5.4.0"
 
 [build-system]
 requires = ["poetry-core"]

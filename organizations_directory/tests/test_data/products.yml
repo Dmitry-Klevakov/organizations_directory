@@ -1,0 +1,268 @@
+districts:
+  - id: 1
+    name: 'Советский'
+  - id: 2
+    name: 'Ленинский'
+  - id: 3
+    name: 'Железнодорожный'
+
+networks:
+  - id: 1
+    name: 'Тандер'
+  - id: 2
+    name: 'Х5'
+  - id: 3
+    name: 'Сеть магазинов одежды'
+  - id: 4
+    name: 'Сеть хозяйственных магазинов'
+  - id: 5
+    name: 'Сеть салонов красоты'
+  - id: 6
+    name: 'Сеть бань, бассейнов и спа-салонов'
+
+categories:
+  - id: 1
+    name: 'Продукты питания'
+  - id: 2
+    name: 'Хозяйственные товары'
+  - id: 3
+    name: 'Одежда'
+  - id: 4
+    name: 'Красота'
+  - id: 5
+    name: 'Здоровье'
+
+organizations:
+  - id: 1
+    name: 'Магнит'
+    network_id: 1
+    district_ids:
+      - 1
+      - 2
+      - 3
+  - id: 2
+    name: 'Пятерочка'
+    network_id: 2
+    district_ids:
+      - 5
+      - 4
+      - 3
+  - id: 3
+    name: 'Zara'
+    network_id: 3
+    district_ids:
+      - 5
+      - 4
+      - 3
+  - id: 4
+    name: 'Zola'
+    network_id: 3
+    district_ids:
+      - 1
+      - 2
+      - 3
+  - id: 5
+    name: 'Хозяюшка'
+    network_id: 4
+    district_ids:
+      - 1
+      - 3
+      - 5
+  - id: 6
+    name: 'Солнышко'
+    network_id: 4
+    district_ids:
+      - 2
+      - 4
+      - 1
+  - id: 7
+    name: 'BeautyCenter'
+    network_id: 5
+    district_ids:
+      - 1
+      - 2
+      - 3
+  - id: 8
+    name: 'Цирюльникъ'
+    network_id: 5
+    district_ids:
+      - 2
+      - 4
+      - 1
+  - id: 9
+    name: 'Меридиан'
+    network_id: 6
+    district_ids:
+      - 1
+  - id: 10
+    name: 'SultanSpa'
+    network_id: 6
+    district_ids:
+      - 2
+      - 3
+
+products:
+  - id: 1
+    name: 'Молоко'
+    category_id: 1
+  - id: 2
+    name: 'Хлеб'
+    category_id: 1
+  - id: 3
+    name: 'Джиннсы'
+    category_id: 3
+  - id: 4
+    name: 'Рубашка'
+    category_id: 3
+  - id: 5
+    name: 'Мыло'
+    category_id: 2
+  - id: 6
+    name: 'Стиральный порошок'
+    category_id: 4
+  - id: 7
+    name: 'Стрижка'
+    category_id: 2
+  - id: 8
+    name: 'Маникюр'
+    category_id: 4
+  - id: 9
+    name: 'Бассеин'
+    category_id: 5
+  - id: 10
+    name: 'Баня'
+    category_id: 5
+
+offers:
+  - id: 1
+    product: 'Молоко'
+    organization: 'Магнит'
+    price: 50.5
+  - id: 2
+    product: 'Молоко'
+    organization: 'Пятерочка'
+    price: 55
+
+products_expected_result:
+  - id: 1
+    name: 'Молоко'
+    category:
+      id: 1
+      name: 'Продукты питания'
+    offers:
+      - organization_id: 1
+        price: 50.5
+      - organization_id: 2
+        price: 55.0
+  - id: 2
+    name: 'Хлеб'
+    category:
+      id: 1
+      name: 'Продукты питания'
+    offers:
+      - organization_id: 1
+        price: 30.0
+      - organization_id: 2
+        price: 33.0
+
+organization_expected_value:
+  id: 1
+  name: 'Магнит'
+  description: 'Описание организации'
+  network:
+    id: 1
+    name: 'Тандер'
+  districts:
+    - id: 1
+      name: 'Советский'
+    - id: 2
+      name: 'Железнодорожный'
+  get_offers:
+    - 'Молоко - 50.5 руб.'
+    - 'Хлеб - 30.0 руб.'
+
+organizations_by_district_expected_value:
+  - id: 1
+    name: 'Магнит'
+    description: 'Описание организации'
+    network:
+      id: 1
+      name: 'Тандер'
+    districts:
+      - id: 1
+        name: 'Советский'
+      - id: 2
+        name: 'Железнодорожный'
+    get_offers:
+      - 'Молоко - 50.5 руб.'
+      - 'Хлеб - 30.0 руб.'
+  - id: 2
+    name: 'Пятерочка'
+    description: 'Описание организации'
+    network:
+      id: 2
+      name: 'X5'
+    districts:
+      - id: 1
+        name: 'Советский'
+    get_offers:
+      - 'Молоко - 55.0 руб.'
+      - 'Хлеб - 33.0 руб.'
+
+filter_by_product_category_name_expected_value:
+  - id: 3
+    name: 'Мойдодыр'
+    description: 'Описание организации'
+    network:
+      id: 3
+      name: 'Сеть хозяйственных магазинов'
+    districts:
+      - id: 1
+        name: 'Советский'
+    get_offers:
+      - 'Мыло - 25.3 руб.'
+
+filter_by_min_price_expected_value:
+  - id: 2
+    name: 'Пятерочка'
+    description: 'Описание организации'
+    network:
+      id: 2
+      name: 'X5'
+    districts:
+      - id: 1
+        name: 'Советский'
+    get_offers:
+      - 'Молоко - 55.0 руб.'
+      - 'Хлеб - 33.0 руб.'
+      - 'Чупа-чупс - 5.0 руб.'
+
+filter_by_max_price_expected_value:
+  - id: 1
+    name: 'Магнит'
+    description: 'Описание организации'
+    network:
+      id: 1
+      name: 'Тандер'
+    districts:
+      - id: 1
+        name: 'Советский'
+      - id: 2
+        name: 'Железнодорожный'
+    get_offers:
+      - 'Молоко - 50.5 руб.'
+      - 'Хлеб - 30.0 руб.'
+      - 'Nutella - 800.0 руб.'
+  - id: 2
+    name: 'Пятерочка'
+    description: 'Описание организации'
+    network:
+      id: 2
+      name: 'X5'
+    districts:
+      - id: 1
+        name: 'Советский'
+    get_offers:
+      - 'Молоко - 55.0 руб.'
+      - 'Хлеб - 33.0 руб.'
+      - 'Nutella - 800.0 руб.'

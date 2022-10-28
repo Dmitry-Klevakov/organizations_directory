@@ -64,7 +64,7 @@ class ProductSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             raise serializers.ValidationError('Organization object does not exist.')
 
-        return {"name": name, "category": category, "organizations": offers}
+        return {'name': name, 'category': category, 'organizations': offers}
 
     class Meta:
         model = Product
@@ -81,7 +81,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
         organizations = validated_data.pop('organizations')
         product = Product.objects.create(**validated_data)
-
         for offer in organizations:
             Offer.objects.create(**{**offer, 'product': product})
         return product

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'organizations_directory.apps.OrganizationsDirectoryConfig',
+    'organizations_directory',
     'rest_framework',
     'django_filters',
     'rest_framework_simplejwt',
