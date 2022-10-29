@@ -7,6 +7,8 @@
     - Django
     - DjangoRestFramework
     - Docker
+    - Pytest
+    - SWAGGER
 
 ## Разворачивание на машине разработчика
 
@@ -22,6 +24,12 @@
   ```bash
   docker-compose up
   ```
+
+## Документация API 
+После разворачивания приложения документация будет доступна по ссылкам:
+* [redoc](http://127.0.0.1:8000/redoc/)
+* [swagger](http://127.0.0.1:8000/swagger/)
+
 
 
 ## Схема базы данных
